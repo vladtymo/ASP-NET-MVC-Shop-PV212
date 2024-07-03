@@ -1,0 +1,55 @@
+﻿@model List<Product>
+<h1>Product List</h1>
+<p>You can manage products here.</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Category</th>
+            <th scope="col">Status</th>
+            <th scope="col">Discount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var i in Model)
+        {
+            <tr>
+                <th scope="row">@i.Id</th>
+                <td>
+                    @i.Name
+                    @if(i.Discount > 0)
+                    {
+                        <span class="badge bg-primary">SALE</span>
+                    }
+                </td>
+                <td>
+                    @if(i.Discount > 0)
+                    {
+                        <span>@(i.Price - i.Price / 100 * i.Discount)$</span>
+                        <del>@i.Price</del>
+                    }
+                    else
+                    {
+                        <span>@i.Price$</span>
+                    }
+                </td>
+                <td>@i.Category</td>
+                <td>
+                    @if(i.Quantity > 0)
+                    {
+                        <span class="badge bg-success">In Stock</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Out of Stock</span>
+                    }
+                </td>
+                <td>@(i.Discount > 0 ? i.Discount + "%" : "-")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<p>Count: @Model.Count</p>
