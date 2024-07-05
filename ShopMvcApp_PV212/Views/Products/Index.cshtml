@@ -13,6 +13,7 @@
             <th scope="col">Category</th>
             <th scope="col">Status</th>
             <th scope="col">Discount</th>
+            <th scope="col">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -50,6 +51,11 @@
                     }
                 </td>
                 <td>@(i.Discount > 0 ? i.Discount + "%" : "-")</td>
+                <td>
+                    <a asp-controller="Products" asp-action="Delete" asp-route-id="@i.Id" class="btn btn-outline-danger">
+                        <i class="bi bi-trash-fill"></i>
+                    </a>
+                </td>
             </tr>
         }
     </tbody>

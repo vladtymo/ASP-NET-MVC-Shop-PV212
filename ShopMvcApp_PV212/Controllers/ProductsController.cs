@@ -12,14 +12,28 @@ namespace ShopMvcApp_PV212.Controllers
         { 
         }
 
+        // [C]reate [R]ead [U]pdate [D]elete
+
         public IActionResult Index()
         {
             // .. load data from database ..
             var products = ctx.Products
-                .Include(x => x.Category) // LEFT JOIN
+                .Include(x => x.Category) // LEFT JOIN  
                 .ToList();
 
             return View(products);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var product = ctx.Products.Find(id);
+
+            if (product == null) return NotFound();
+
+            ctx.Products.Remove(product);
+            ctx.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }
