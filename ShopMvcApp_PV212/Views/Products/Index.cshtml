@@ -1,10 +1,12 @@
-﻿@model List<Product>
+﻿@using ShopMvcApp_PV212.Entities
+@model List<Product>
+
 <h1>Product List</h1>
 <p>You can manage products here.</p>
 
 <table class="table">
     <thead>
-        <tr>
+        <tr class="table-dark">
             <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Price</th>
@@ -36,7 +38,7 @@
                         <span>@i.Price$</span>
                     }
                 </td>
-                <td>@i.Category</td>
+                <td>@i.Category?.Name</td>
                 <td>
                     @if(i.Quantity > 0)
                     {
