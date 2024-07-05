@@ -9,6 +9,7 @@
         public int Discount { get; set; }
         public int Quantity { get; set; }
         public int CategoryId { get; set; }
+        public bool Archived { get; set; }
 
         // ---- navigation properties
         public Category Category { get; set; }

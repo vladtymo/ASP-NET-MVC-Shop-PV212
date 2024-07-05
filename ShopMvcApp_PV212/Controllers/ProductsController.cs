@@ -18,7 +18,19 @@ namespace ShopMvcApp_PV212.Controllers
         {
             // .. load data from database ..
             var products = ctx.Products
-                .Include(x => x.Category) // LEFT JOIN  
+                .Include(x => x.Category) // LEFT JOIN
+                .Where(x => !x.Archived)
+                .ToList();
+
+            return View(products);
+        }
+
+        public IActionResult Archive()
+        {
+            // .. load data from database ..
+            var products = ctx.Products
+                .Include(x => x.Category) // LEFT JOIN
+                .Where(x => x.Archived)
                 .ToList();
 
             return View(products);
@@ -33,7 +45,31 @@ namespace ShopMvcApp_PV212.Controllers
             ctx.Products.Remove(product);
             ctx.SaveChanges();
 
+            return RedirectToAction("Archive");
+        }
+
+        public IActionResult ArchiveItem(int id)
+        {
+            var product = ctx.Products.Find(id);
+
+            if (product == null) return NotFound();
+
+            product.Archived = true;
+            ctx.SaveChanges();
+
             return RedirectToAction("Index");
+        }
+
+        public IActionResult RestoreItem(int id)
+        {
+            var product = ctx.Products.Find(id);
+
+            if (product == null) return NotFound();
+
+            product.Archived = false;
+            ctx.SaveChanges();
+
+            return RedirectToAction("Archive");
         }
     }
 }
