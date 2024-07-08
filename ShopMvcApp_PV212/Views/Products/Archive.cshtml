@@ -1,6 +1,10 @@
 ﻿@using ShopMvcApp_PV212.Entities
 @model List<Product>
 
+@{
+    int selectedId = 0;
+}
+
 <h1>Archived Products</h1>
 <p>You can delete products permanently here.</p>
 
@@ -56,6 +60,7 @@
                         <i class="bi bi-arrow-counterclockwise"></i>
                     </a>
 
+                    <!-- TODO: use modal dialog -->
                     <a asp-controller="Products" asp-action="Delete" asp-route-id="@i.Id" class="btn btn-outline-danger">
                         <i class="bi bi-trash-fill"></i>
                     </a>

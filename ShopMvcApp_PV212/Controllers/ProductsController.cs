@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShopMvcApp_PV212.Data;
+using ShopMvcApp_PV212.Entities;
 using ShopMvcApp_PV212.Models;
 
 namespace ShopMvcApp_PV212.Controllers
@@ -34,6 +35,25 @@ namespace ShopMvcApp_PV212.Controllers
                 .ToList();
 
             return View(products);
+        }
+
+        // GET: 
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST
+        [HttpPost]
+        public IActionResult Create(Product model)
+        {
+            // TODO: add data validation
+
+            ctx.Products.Add(model);
+            ctx.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         public IActionResult Delete(int id)

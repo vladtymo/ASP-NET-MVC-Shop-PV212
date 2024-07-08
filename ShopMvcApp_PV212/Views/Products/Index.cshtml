@@ -4,6 +4,11 @@
 <h1>Product List</h1>
 <p>You can manage products here.</p>
 
+<a asp-action="Create" class="btn btn-primary mb-2">
+    <i class="bi bi-plus-lg"></i>
+    Create New Product
+</a>
+
 <table class="table">
     <thead>
         <tr class="table-dark">
@@ -19,7 +24,7 @@
     <tbody>
         @foreach (var i in Model)
         {
-            <tr>
+            <tr class="align-middle">
                 <th scope="row">@i.Id</th>
                 <td>
                     @i.Name
