@@ -105,6 +105,9 @@ namespace ShopMvcApp_PV212.Migrations
                     b.Property<int>("Discount")
                         .HasColumnType("int");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -128,6 +131,7 @@ namespace ShopMvcApp_PV212.Migrations
                             Archived = false,
                             CategoryId = 1,
                             Discount = 10,
+                            ImageUrl = "https://applecity.com.ua/image/cache/catalog/0iphone/ipohnex/iphone-x-black-1000x1000.png",
                             Name = "iPhone X",
                             Price = 650m,
                             Quantity = 5
@@ -138,6 +142,7 @@ namespace ShopMvcApp_PV212.Migrations
                             Archived = false,
                             CategoryId = 2,
                             Discount = 0,
+                            ImageUrl = "https://http2.mlstatic.com/D_NQ_NP_727192-CBT53879999753_022023-V.jpg",
                             Name = "PowerBall",
                             Price = 45.5m,
                             Quantity = 3
@@ -148,6 +153,7 @@ namespace ShopMvcApp_PV212.Migrations
                             Archived = false,
                             CategoryId = 3,
                             Discount = 15,
+                            ImageUrl = "https://www.seekpng.com/png/detail/316-3168852_nike-air-logo-t-shirt-nike-t-shirt.png",
                             Name = "Nike T-Shirt",
                             Price = 189m,
                             Quantity = 3
@@ -158,6 +164,7 @@ namespace ShopMvcApp_PV212.Migrations
                             Archived = false,
                             CategoryId = 1,
                             Discount = 5,
+                            ImageUrl = "https://sota.kh.ua/image/cache/data/Samsung-2/samsung-s23-s23plus-blk-01-700x700.webp",
                             Name = "Samsung S23",
                             Price = 1200m,
                             Quantity = 0
@@ -168,6 +175,7 @@ namespace ShopMvcApp_PV212.Migrations
                             Archived = false,
                             CategoryId = 6,
                             Discount = 0,
+                            ImageUrl = "https://cdn.shopify.com/s/files/1/0046/1163/7320/products/69ee701e-e806-4c4d-b804-d53dc1f0e11a_grande.jpg",
                             Name = "Air Ball",
                             Price = 50m,
                             Quantity = 0
@@ -178,6 +186,7 @@ namespace ShopMvcApp_PV212.Migrations
                             Archived = false,
                             CategoryId = 1,
                             Discount = 10,
+                            ImageUrl = "https://newtime.ua/image/import/catalog/mac/macbook_pro/MacBook-Pro-16-2019/MacBook-Pro-16-Space-Gray-2019/MacBook-Pro-16-Space-Gray-00.webp",
                             Name = "MacBook Pro 2019",
                             Price = 0m,
                             Quantity = 23

@@ -20,3 +20,11 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.admin-product-table img {
+    transition: .1s
+}
+
+.admin-product-table img:hover {
+    transform: scale(3)
+}
