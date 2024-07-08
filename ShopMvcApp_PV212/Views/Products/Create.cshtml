@@ -17,32 +17,31 @@
     <div class="col-md-3">
         <label asp-for=Discount class="form-label">Discount</label>
         <div class="input-group">
-            <input asp-for=Discount min="0" max="100" step="1" type="number" class="form-control" placeholder="Enter product discount">
+            <input asp-for=Discount value="0" min="0" max="100" step="1" type="number" class="form-control" placeholder="Enter product discount">
             <span class="input-group-text">%</span>
         </div>
     </div>
     <div class="col-md-3">
         <label asp-for=Quantity class="form-label">Quantity</label>
-        <input asp-for=Quantity min="0" type="number" class="form-control" placeholder="Enter product quantity">
+        <input asp-for=Quantity value="1" min="0" step="1" type="number" class="form-control" placeholder="Enter product quantity">
     </div>
 
-    <div class="col-12">
+   @*  <div class="col-12">
         <label asp-for=CategoryId class="form-label">Cateogory Id</label>
         <input asp-for=CategoryId type="number" class="form-control" placeholder="Enter product category id">
+    </div> *@
+
+    <div class="col-12">
+        <label asp-for=CategoryId class="form-label">Category</label>
+        <select asp-for=CategoryId asp-items=@ViewBag.Categories class="form-select">
+            <option disabled selected>Choose product category...</option>
+        </select>
     </div>
 
     <div class="col-12 mb-3">
         <label asp-for=Description class="form-label">Description</label>
         <textarea asp-for=Description maxlength="10000" placeholder="Enter product description" class="form-control" rows="3"></textarea>
     </div>
-
-    @* <div class="col-md-4">
-        <label for="inputState" class="form-label">State</label>
-        <select id="inputState" class="form-select">
-            <option selected>Choose...</option>
-            <option>...</option>
-        </select>
-    </div> *@
 
     <div class="col-md-6">
         <a asp-action="Index" class="btn btn-dark w-100">

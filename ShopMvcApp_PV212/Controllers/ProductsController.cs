@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ShopMvcApp_PV212.Data;
 using ShopMvcApp_PV212.Entities;
@@ -41,6 +42,9 @@ namespace ShopMvcApp_PV212.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            // ViewBag.PropertyName = value;
+            ViewBag.Categories = new SelectList(ctx.Categories.ToList(), "Id", "Name");
+
             return View();
         }
 
