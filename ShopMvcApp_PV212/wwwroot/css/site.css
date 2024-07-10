@@ -28,3 +28,8 @@ body {
 .admin-product-table img:hover {
     transform: scale(3)
 }
+
+.home-product-list .card img {
+    object-fit: contain;
+    margin-top: 4px;
+}

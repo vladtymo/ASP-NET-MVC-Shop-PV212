@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ShopMvcApp_PV212.Data;
 using ShopMvcApp_PV212.Models;
 using System.Diagnostics;
 
@@ -6,13 +8,17 @@ namespace ShopMvcApp_PV212.Controllers
 {
     public class HomeController : Controller
     {
+        private ShopDbContext context = new();
         public HomeController()
         {
         }
 
         public IActionResult Index()
         {
-            return View(); // search for view in: ~/Views/Home/Index
+            var products = context.Products
+                .Include(x => x.Category)
+                .ToList();
+            return View(products); // search for view in: ~/Views/Home/Index
         }
 
         public IActionResult Privacy()
