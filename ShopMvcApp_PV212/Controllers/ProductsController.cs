@@ -42,10 +42,9 @@ namespace ShopMvcApp_PV212.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            // ViewBag.PropertyName = value;
-            ViewBag.Categories = new SelectList(ctx.Categories.ToList(), "Id", "Name");
-
-            return View();
+            LoadCategories();
+            ViewBag.CreateMode = true;
+            return View("Upsert");
         }
 
         // POST
@@ -55,6 +54,29 @@ namespace ShopMvcApp_PV212.Controllers
             // TODO: add data validation
 
             ctx.Products.Add(model);
+            ctx.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var product = ctx.Products.Find(id);
+
+            if (product == null) return NotFound();
+
+            LoadCategories();
+            ViewBag.CreateMode = false;
+            return View("Upsert", product);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Product model)
+        {
+            // TODO: add data validation
+
+            ctx.Products.Update(model);
             ctx.SaveChanges();
 
             return RedirectToAction("Index");
@@ -94,6 +116,12 @@ namespace ShopMvcApp_PV212.Controllers
             ctx.SaveChanges();
 
             return RedirectToAction("Archive");
+        }
+
+        private void LoadCategories()
+        {
+            // ViewBag.PropertyName = value;
+            ViewBag.Categories = new SelectList(ctx.Categories.ToList(), "Id", "Name");
         }
     }
 }

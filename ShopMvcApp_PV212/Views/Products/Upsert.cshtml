@@ -1,8 +1,11 @@
 ﻿@model Product
+@{
+    var create = ViewBag.CreateMode;
+}
 
-<h1>Create Product Form</h1>
+<h1>@(create ? "Create" : "Edit") Product Form</h1>
 
-<form class="row g-3" method="post" asp-action="Create">
+<form class="row g-3" method="post" asp-action="@(create ? "Create" : "Edit")">
     <div class="col-12">
         <label asp-for=Name class="form-label">Name</label>
         <input asp-for=Name required type="text" class="form-control" placeholder="Enter product name">
@@ -26,16 +29,16 @@
         <input asp-for=Quantity value="1" min="0" step="1" type="number" class="form-control" placeholder="Enter product quantity">
     </div>
 
-   @*  <div class="col-12">
-        <label asp-for=CategoryId class="form-label">Cateogory Id</label>
-        <input asp-for=CategoryId type="number" class="form-control" placeholder="Enter product category id">
-    </div> *@
-
-    <div class="col-12">
+    <div class="col-6">
         <label asp-for=CategoryId class="form-label">Category</label>
         <select asp-for=CategoryId asp-items=@ViewBag.Categories class="form-select">
             <option disabled selected>Choose product category...</option>
         </select>
+    </div>
+
+    <div class="col-6">
+        <label asp-for=ImageUrl class="form-label">Image URL</label>
+        <input asp-for=ImageUrl required type="text" class="form-control" placeholder="Enter product image address">
     </div>
 
     <div class="col-12 mb-3">
@@ -52,7 +55,7 @@
     <div class="col-md-6">
         <button type="submit" class="btn btn-success w-100">
             <i class="bi bi-plus-lg"></i>
-            Create
+            @(create ? "Create" : "Edit")
         </button>
     </div>
 </form>
