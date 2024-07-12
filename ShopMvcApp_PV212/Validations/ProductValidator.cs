@@ -7,26 +7,34 @@ namespace ShopMvcApp_PV212.Validations
     {
         public ProductValidator()
         {
-            RuleFor(x => x.Id).NotEmpty();
             RuleFor(x => x.Name)
                .NotEmpty()
                .MinimumLength(2)
                .Matches("[A-Z].*").WithMessage("{PropertyName} must starts with uppercase letter.");
             RuleFor(x => x.Discount)
                 .InclusiveBetween(0, 100);
-            RuleFor(x => x.Price).GreaterThanOrEqualTo(0);
+            RuleFor(x => x.Price).GreaterThanOrEqualTo(10);
             RuleFor(x => x.Quantity).GreaterThanOrEqualTo(0);
-            RuleFor(x => x.CategoryId).GreaterThan(0);
+            RuleFor(x => x.CategoryId)
+                .NotNull()
+                .NotEmpty()
+                .GreaterThan(0);
             RuleFor(x => x.Description)
                 .MaximumLength(100);
-            RuleFor(x => x.ImageUrl).Must(BeAValidUrl).WithMessage("Inage url address must be valid.");
+            RuleFor(x => x.ImageUrl).Must(LinkMustBeAUri).WithMessage("Inage url address must be valid.");
         }
 
-        private bool BeAValidUrl(string? url)
+        private static bool LinkMustBeAUri(string? link)
         {
-            Uri? uriResult;
-            return Uri.TryCreate(url, UriKind.Absolute, out uriResult)
-                && uriResult.Scheme == Uri.UriSchemeHttp;
+            if (string.IsNullOrWhiteSpace(link))
+            {
+                return false;
+            }
+
+            //Courtesy of @Pure.Krome's comment and https://stackoverflow.com/a/25654227/563532
+            Uri outUri;
+            return Uri.TryCreate(link, UriKind.Absolute, out outUri)
+                   && (outUri.Scheme == Uri.UriSchemeHttp || outUri.Scheme == Uri.UriSchemeHttps);
         }
     }
 }
