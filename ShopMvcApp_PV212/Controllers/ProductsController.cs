@@ -51,7 +51,13 @@ namespace ShopMvcApp_PV212.Controllers
         [HttpPost]
         public IActionResult Create(Product model)
         {
-            // TODO: add data validation
+            // data validation
+            if (!ModelState.IsValid)
+            {
+                ViewBag.CreateMode = true;
+                LoadCategories();
+                return View("Upsert", model);
+            }
 
             ctx.Products.Add(model);
             ctx.SaveChanges();
@@ -74,7 +80,13 @@ namespace ShopMvcApp_PV212.Controllers
         [HttpPost]
         public IActionResult Edit(Product model)
         {
-            // TODO: add data validation
+            // data validation
+            if (!ModelState.IsValid)
+            {
+                ViewBag.CreateMode = false;
+                LoadCategories();
+                return View("Upsert", model);
+            }
 
             ctx.Products.Update(model);
             ctx.SaveChanges();

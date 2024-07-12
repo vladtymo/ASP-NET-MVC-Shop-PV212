@@ -5,10 +5,13 @@
 
 <h1>@(create ? "Create" : "Edit") Product Form</h1>
 
+@* <div asp-validation-summary=All></div> *@
+
 <form class="row g-3" method="post" asp-action="@(create ? "Create" : "Edit")">
     <div class="col-12">
         <label asp-for=Name class="form-label">Name</label>
         <input asp-for=Name required type="text" class="form-control" placeholder="Enter product name">
+        <span class="small text-danger" asp-validation-for="Name"></span>
     </div>
     <div class="col-md-6">
         <label asp-for=Price class="form-label">Price</label>
@@ -16,6 +19,7 @@
             <input asp-for=Price min="0" step="0.01" type="number" class="form-control" placeholder="Enter product price">
             <span class="input-group-text">$</span>
         </div>
+        <span class="small text-danger" asp-validation-for="Price"></span>
     </div>
     <div class="col-md-3">
         <label asp-for=Discount class="form-label">Discount</label>
@@ -23,10 +27,12 @@
             <input asp-for=Discount value="0" min="0" max="100" step="1" type="number" class="form-control" placeholder="Enter product discount">
             <span class="input-group-text">%</span>
         </div>
+        <span class="small text-danger" asp-validation-for="Discount"></span>
     </div>
     <div class="col-md-3">
         <label asp-for=Quantity class="form-label">Quantity</label>
         <input asp-for=Quantity value="1" min="0" step="1" type="number" class="form-control" placeholder="Enter product quantity">
+        <span class="small text-danger" asp-validation-for="Quantity"></span>
     </div>
 
     <div class="col-6">
@@ -34,16 +40,19 @@
         <select asp-for=CategoryId asp-items=@ViewBag.Categories class="form-select">
             <option disabled selected>Choose product category...</option>
         </select>
+        <span class="small text-danger" asp-validation-for="CategoryId"></span>
     </div>
 
     <div class="col-6">
         <label asp-for=ImageUrl class="form-label">Image URL</label>
         <input asp-for=ImageUrl required type="text" class="form-control" placeholder="Enter product image address">
+        <span class="small text-danger" asp-validation-for="ImageUrl"></span>
     </div>
 
     <div class="col-12 mb-3">
         <label asp-for=Description class="form-label">Description</label>
         <textarea asp-for=Description maxlength="10000" placeholder="Enter product description" class="form-control" rows="3"></textarea>
+        <span class="small text-danger" asp-validation-for="Description"></span>
     </div>
 
     <div class="col-md-6">
@@ -59,3 +68,7 @@
         </button>
     </div>
 </form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
