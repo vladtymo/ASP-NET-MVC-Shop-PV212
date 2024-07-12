@@ -6,20 +6,20 @@ namespace ShopMvcApp_PV212.Entities
     {
         public int Id { get; set; }
 
-        [Required]
+        //[Required]
         public string Name { get; set; }
-        [Url]
+       // [Url]
         public string? ImageUrl { get; set; }
-        [MaxLength(100)]
+        //[MaxLength(100)]
         public string? Description { get; set; }
 
-        [Range(0, int.MaxValue)]
+        //[Range(0, int.MaxValue)]
         public decimal Price { get; set; }
-        [Range(0, 100)]
+       // [Range(0, 100)]
         public int Discount { get; set; }
-        [Range(0, int.MaxValue)]
+       // [Range(0, int.MaxValue)]
         public int Quantity { get; set; }
-        [Range(1, int.MaxValue, ErrorMessage = "Category is required.")]
+        //[Range(1, int.MaxValue, ErrorMessage = "Category is required.")]
         public int CategoryId { get; set; }
         public bool Archived { get; set; }
 

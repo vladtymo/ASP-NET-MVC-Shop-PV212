@@ -1,7 +1,12 @@
+using FluentValidation;
+using ShopMvcApp_PV212.Validations;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 
