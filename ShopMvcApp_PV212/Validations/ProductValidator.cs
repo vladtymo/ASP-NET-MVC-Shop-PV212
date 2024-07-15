@@ -1,9 +1,10 @@
 ﻿using FluentValidation;
+using ShopMvcApp_PV212.Dtos;
 using ShopMvcApp_PV212.Entities;
 
 namespace ShopMvcApp_PV212.Validations
 {
-    public class ProductValidator : AbstractValidator<Product>
+    public class ProductValidator : AbstractValidator<ProductDto>
     {
         public ProductValidator()
         {

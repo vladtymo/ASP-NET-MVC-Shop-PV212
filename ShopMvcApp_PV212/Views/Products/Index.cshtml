@@ -1,5 +1,4 @@
-﻿@using ShopMvcApp_PV212.Entities
-@model List<Product>
+﻿@model List<ProductDto>
 
 <h1>Product List</h1>
 <p>You can manage products here.</p>
@@ -50,7 +49,7 @@
                         <span>@i.Price$</span>
                     }
                 </td>
-                <td>@i.Category?.Name</td>
+                <td>@i.CategoryName</td>
                 <td>
                     @if(i.Quantity > 0)
                     {

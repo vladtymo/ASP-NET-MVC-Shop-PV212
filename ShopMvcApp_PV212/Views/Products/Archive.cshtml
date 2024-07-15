@@ -1,5 +1,4 @@
-﻿@using ShopMvcApp_PV212.Entities
-@model List<Product>
+﻿@model List<ProductDto>
 
 @* TODO: combine index and archive views *@
 <h1>Archived Products</h1>
@@ -40,7 +39,7 @@
                         <span>@i.Price$</span>
                     }
                 </td>
-                <td>@i.Category?.Name</td>
+                <td>@i.CategoryName</td>
                 <td>
                     @if (i.Quantity > 0)
                     {

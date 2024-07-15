@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ShopMvcApp_PV212.Data;
+using ShopMvcApp_PV212.Dtos;
 using ShopMvcApp_PV212.Entities;
 using ShopMvcApp_PV212.Models;
 
@@ -10,8 +12,11 @@ namespace ShopMvcApp_PV212.Controllers
     public class ProductsController : Controller
     {
         private ShopDbContext ctx = new ShopDbContext();
-        public ProductsController()
-        { 
+        private readonly IMapper mapper;
+
+        public ProductsController(IMapper mapper)
+        {
+            this.mapper = mapper;
         }
 
         // [C]reate [R]ead [U]pdate [D]elete
@@ -24,7 +29,7 @@ namespace ShopMvcApp_PV212.Controllers
                 .Where(x => !x.Archived)
                 .ToList();
 
-            return View(products);
+            return View(mapper.Map<List<ProductDto>>(products));
         }
 
         public IActionResult Archive()
@@ -35,7 +40,7 @@ namespace ShopMvcApp_PV212.Controllers
                 .Where(x => x.Archived)
                 .ToList();
 
-            return View(products);
+            return View(mapper.Map<List<ProductDto>>(products));
         }
 
         // GET: 
@@ -49,7 +54,7 @@ namespace ShopMvcApp_PV212.Controllers
 
         // POST
         [HttpPost]
-        public IActionResult Create(Product model)
+        public IActionResult Create(ProductDto model)
         {
             // data validation
             if (!ModelState.IsValid)
@@ -59,7 +64,22 @@ namespace ShopMvcApp_PV212.Controllers
                 return View("Upsert", model);
             }
 
-            ctx.Products.Add(model);
+            // 1 - manual mapping
+            //var entity = new Product
+            //{
+            //    Name = model.Name,
+            //    Archived = model.Archived,
+            //    CategoryId = model.CategoryId,
+            //    Description = model.Description,
+            //    Discount = model.Discount,
+            //    ImageUrl = model.ImageUrl,
+            //    Price = model.Price,
+            //    Quantity = model.Quantity
+            //};
+            // 2 - using Auto Mapper
+            var entity = mapper.Map<Product>(model);
+
+            ctx.Products.Add(entity);
             ctx.SaveChanges();
 
             return RedirectToAction("Index");
@@ -74,11 +94,11 @@ namespace ShopMvcApp_PV212.Controllers
 
             LoadCategories();
             ViewBag.CreateMode = false;
-            return View("Upsert", product);
+            return View("Upsert", mapper.Map<ProductDto>(product));
         }
 
         [HttpPost]
-        public IActionResult Edit(Product model)
+        public IActionResult Edit(ProductDto model)
         {
             // data validation
             if (!ModelState.IsValid)
@@ -88,7 +108,7 @@ namespace ShopMvcApp_PV212.Controllers
                 return View("Upsert", model);
             }
 
-            ctx.Products.Update(model);
+            ctx.Products.Update(mapper.Map<Product>(model));
             ctx.SaveChanges();
 
             return RedirectToAction("Index");
