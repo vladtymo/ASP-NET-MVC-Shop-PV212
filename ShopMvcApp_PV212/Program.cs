@@ -1,6 +1,6 @@
+using Core.MapperProfiles;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using ShopMvcApp_PV212.Validations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +11,7 @@ builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(typeof(AppProfile));
 
 var app = builder.Build();
 

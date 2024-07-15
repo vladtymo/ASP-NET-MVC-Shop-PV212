@@ -1,8 +1,7 @@
 ﻿using FluentValidation;
-using ShopMvcApp_PV212.Dtos;
-using ShopMvcApp_PV212.Entities;
+using Core.Dtos;
 
-namespace ShopMvcApp_PV212.Validations
+namespace Core.Validations
 {
     public class ProductValidator : AbstractValidator<ProductDto>
     {

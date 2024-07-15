@@ -2,20 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ShopMvcApp_PV212.Data;
+using Data.Data;
 
 #nullable disable
 
-namespace ShopMvcApp_PV212.Migrations
+namespace Data.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    [Migration("20240708155816_Initial")]
-    partial class Initial
+    partial class ShopDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

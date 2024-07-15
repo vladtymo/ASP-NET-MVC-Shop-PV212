@@ -1,6 +1,5 @@
-﻿namespace ShopMvcApp_PV212.Entities
+﻿namespace Data.Entities
 {
-
     public class Category
     {
         public int Id { get; set; }

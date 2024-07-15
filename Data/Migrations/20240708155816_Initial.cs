@@ -4,7 +4,7 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace ShopMvcApp_PV212.Migrations
+namespace Data.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration

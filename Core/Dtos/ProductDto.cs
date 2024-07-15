@@ -1,6 +1,4 @@
-﻿using ShopMvcApp_PV212.Entities;
-
-namespace ShopMvcApp_PV212.Dtos
+﻿namespace Core.Dtos
 {
     public class ProductDto
     {
