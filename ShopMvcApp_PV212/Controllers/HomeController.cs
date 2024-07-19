@@ -8,9 +8,11 @@ namespace ShopMvcApp_PV212.Controllers
 {
     public class HomeController : Controller
     {
-        private ShopDbContext context = new();
-        public HomeController()
+        private readonly ShopDbContext context;
+
+        public HomeController(ShopDbContext context)
         {
+            this.context = context;
         }
 
         public IActionResult Index()

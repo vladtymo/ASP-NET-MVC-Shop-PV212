@@ -4,17 +4,19 @@ using Data.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShopMvcApp_PV212.Extensions;
+using ShopMvcApp_PV212.Services;
 
 namespace ShopMvcApp_PV212.Controllers
 {
     public class CartController : Controller
     {
-        private ShopDbContext context = new();
         private readonly IMapper mapper;
+        private readonly ShopDbContext context;
 
-        public CartController(IMapper mapper)
+        public CartController(IMapper mapper, ShopDbContext context)
         {
             this.mapper = mapper;
+            this.context = context;
         }
         public IActionResult Index()
         {
