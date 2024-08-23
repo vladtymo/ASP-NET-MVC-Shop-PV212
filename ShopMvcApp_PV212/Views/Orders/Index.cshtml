@@ -1,0 +1,10 @@
+﻿@model List<OrderDto>
+
+<h1>Order History</h1>
+
+<ul class="list-group">
+    @foreach (var i in Model)
+    {
+        <li class="list-group-item">[@i.Id] - @i.CreatedAt.ToString("d") - <b>@i.CreatedAt.ToString("t")</b> made by @i.UserName</li>
+    }
+</ul>

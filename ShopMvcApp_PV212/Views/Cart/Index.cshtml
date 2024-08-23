@@ -1,0 +1,44 @@
+﻿@model List<ProductDto>;
+
+<div class="card text-center">
+    <div class="card-header">
+        My Cart
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Cart Product List</h5>
+      
+        @if(Model.Any())
+        {
+        <ol class="list-group list-group-numbered">
+            @foreach (var i in Model)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <img class="ms-2" height="48" src="@i.ImageUrl" alt="@i.Name" />
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold text-start">@i.Name</div>
+                        @i.CategoryName | Stock: @i.Quantity
+                    </div>
+                    <span style="background-color: #0d6efd" class="badge text-bg-primary">@i.Price$</span>
+                    <a asp-action="Remove" asp-route-id="@i.Id" class="btn text-danger">
+                        <i class="bi bi-trash3"></i>
+                    </a>
+                </li>
+            }
+            </ol>
+
+            <a asp-controller="Orders" asp-action="Create" class="btn btn-success mt-3">Confirm</a>
+        }
+        else
+        {
+            <p class="mt-4">Looks like your cart is empty</p>
+            <div>
+                <a asp-controller="Home" class="btn btn-primary mt-3">
+                    Browse Our Store
+                </a>
+            </div>
+        }
+    </div>
+    <div class="card-footer text-body-secondary">
+        Total: @Model.Sum(x => x.Price)$
+    </div>
+</div>

@@ -1,0 +1,21 @@
+﻿@model Product
+
+<div class="col">
+    <div class="card h-100">
+        <img height="130" src="@(Model.ImageUrl ?? "https://thumbs.dreamstime.com/b/no-image-icon-vector-available-picture-symbol-isolated-white-background-suitable-user-interface-element-205805243.jpg")" class="card-img-top" alt="@Model.Name">
+        <div class="card-body">
+            <h5 class="card-title">
+                <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.Id">@Model.Name</a>
+            </h5>
+            <p class="card-text">
+                @Model.Category?.Name<br />
+                Left: @Model.Quantity</p>
+            <a asp-controller="Cart" asp-action="Add" asp-route-id="@Model.Id" asp-route-returnUrl="@Context.Request.Path" class="btn btn-primary">Add to Cart</a>
+        </div>
+        <div class="card-footer">
+            <small class="text-muted">
+                Price: <span class="badge bg-secondary">@Model.Price$</span>
+            </small>
+        </div>
+    </div>
+</div>

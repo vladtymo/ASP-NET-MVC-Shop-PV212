@@ -1,0 +1,83 @@
+﻿@model List<ProductDto>
+
+<h1>Product List</h1>
+<p>You can manage products here.</p>
+
+<div class="text-start">
+    <a asp-action="Create" class="btn btn-primary mb-3">
+        <i class="bi bi-plus-lg"></i>
+        Create New Product
+    </a>
+</div>
+
+<table class="table admin-product-table">
+    <thead>
+        <tr class="table-dark">
+            <th scope="col">#</th>
+            <th scope="col" class="text-center">Image</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Category</th>
+            <th scope="col">Status</th>
+            <th scope="col">Discount</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var i in Model)
+        {
+            <tr class="align-middle">
+                <th scope="row">@i.Id</th>
+                <th class="text-center" scope="row">
+                    <img height="50" src="@i.ImageUrl" alt="@i.Name" />
+                </th>
+                <td>
+                    @i.Name
+                    @if(i.Discount > 0)
+                    {
+                        <span class="badge bg-primary">SALE</span>
+                    }
+                </td>
+                <td>
+                    @if(i.Discount > 0)
+                    {
+                        <span>@(i.Price - i.Price / 100 * i.Discount)$</span>
+                        <del>@i.Price</del>
+                    }
+                    else
+                    {
+                        <span>@i.Price$</span>
+                    }
+                </td>
+                <td>@i.CategoryName</td>
+                <td>
+                    @if(i.Quantity > 0)
+                    {
+                        <span class="badge bg-success">In Stock</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Out of Stock</span>
+                    }
+                </td>
+                <td>@(i.Discount > 0 ? i.Discount + "%" : "-")</td>
+                <td>
+                    <a asp-controller="Products" asp-action="Edit" asp-route-id="@i.Id" class="btn btn-outline-info">
+                        <i class="bi bi-pencil-fill"></i>
+                    </a>
+                    <a asp-controller="Products" asp-action="ArchiveItem" asp-route-id="@i.Id" class="btn btn-outline-warning">
+                        <i class="bi bi-archive-fill"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<p>Count: @Model.Count</p>
+
+<div>
+    <a asp-action="Archive" class="btn btn-secondary">
+        <i class="bi bi-archive-fill"></i>
+        <span>Show Archived Items</span>
+    </a>
+</div>
