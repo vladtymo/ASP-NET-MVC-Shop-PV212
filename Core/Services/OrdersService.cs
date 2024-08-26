@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Core.Dtos;
 using Core.Interfaces;
+using Core.Models;
 using Data.Data;
 using Data.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -20,21 +21,32 @@ namespace Core.Services
         private readonly IMapper mapper;
         private readonly ICartService cartService;
         private readonly IEmailSender emailSender;
+        private readonly IViewRender viewRender;
 
-        public OrdersService(ShopDbContext context, IMapper mapper, ICartService cartService, IEmailSender emailSender)
+        public OrdersService(
+            ShopDbContext context, 
+            IMapper mapper, 
+            ICartService cartService, 
+            IEmailSender emailSender,
+            IViewRender viewRender
+            )
         {
             this.context = context;
             this.mapper = mapper;
             this.cartService = cartService;
             this.emailSender = emailSender;
+            this.viewRender = viewRender;
         }
         public async Task Create(string userId, string userEmail)
         {
+            var products = cartService.GetProductsEntity();
+            var productsDtos = mapper.Map<IEnumerable<ProductDto>>(products);
+
             // create order
             var newOrder = new Order()
             {
                 CreatedAt = DateTime.Now,
-                Products = cartService.GetProductsEntity(),
+                Products = products,
                 UserId = userId
             };
 
@@ -42,7 +54,15 @@ namespace Core.Services
             context.SaveChanges();
 
             // email client about new order
-            await emailSender.SendEmailAsync(userEmail, $"New Order #{newOrder.Id}", "<h1>New Order</h1>");
+            var html = viewRender.Render("MailTemplates/StyledSummary", new OrderSummaryModel
+            {
+                OrderNumber = newOrder.Id,
+                UserName = userEmail,
+                Products = productsDtos,
+                TotalPrice = productsDtos.Sum(i => i.Price)
+            });
+
+            await emailSender.SendEmailAsync(userEmail, $"New Order #{newOrder.Id}", html);
 
             cartService.Clear();
         }
